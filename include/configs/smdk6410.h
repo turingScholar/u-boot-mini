@@ -258,6 +258,11 @@
 #define	CONFIG_MOVINAND
 
 
+#define	CONFIG_S3C_USBD
+#define	USBD_DOWN_ADDR               0xc0000000
+
+
+
 #define	CONFIG_BOOT_NAND
 #define	CONFIG_NAND
 #define	CONFIG_NAND_BL1_8BIT_ECC

@@ -28,7 +28,7 @@ LIB	= lib$(CPU).a
 START	= start.o
 
 OBJS	= nand_cp.o serial.o  \
-		interrupts.o cpu.o
+		interrupts.o cpu.o usbd-otg-hs.o
 		
 # i2c.o nand.o
 # onenand.o onenand_cp.o usbd-otg-hs.o 

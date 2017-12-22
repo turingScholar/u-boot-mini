@@ -43,6 +43,8 @@
 #define BIT29			0x20000000
 #define BIT30			0x40000000
 #define BIT31			0x80000000
+#define BIT_ALLMSK		0xFFFFFFFF
+
 
 #define ROM_BASE0		0x00000000      /* base address of rom bank 0 */
 #define ROM_BASE1		0x04000000      /* base address of rom bank 1 */
