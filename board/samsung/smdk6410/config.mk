@@ -25,6 +25,6 @@
 
 
 ifndef TEXT_BASE
-TEXT_BASE = 0xc7000000
+TEXT_BASE = 0xc7e00000
 endif
 

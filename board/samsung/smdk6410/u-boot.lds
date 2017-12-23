@@ -33,9 +33,10 @@ SECTIONS
 	.text      :
 	{
 	  cpu/s3c64xx/start.o	(.text)
-	  board/samsung/smdk6410/lowlevel_init.o	(.text)
 	  cpu/s3c64xx/s3c6410/cpu_init.o	(.text)
+	  board/samsung/smdk6410/lowlevel_init.o	(.text)
 	  cpu/s3c64xx/nand_cp.o	(.text)
+	  common/hs_mmc.o		(.text)
 	  *(.text)
 	  lib_arm/div0.o
 	}

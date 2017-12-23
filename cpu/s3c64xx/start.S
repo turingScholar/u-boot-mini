@@ -134,7 +134,6 @@ reset:
 	/*
 	 * set the cpu to SVC32 mode
 	 */
-	b skip_hw_init
 	mrs	r0,cpsr
 	bic	r0,r0,#0x1f
 	orr	r0,r0,#0xd3
@@ -189,6 +188,13 @@ cpu_init_crit:
 #endif
 
 
+#ifdef CONFIG_BOOT_MOVINAND
+	ldr	sp, _TEXT_PHY_BASE
+	bl	movi_bl2_copy
+	b	after_copy
+#endif
+
+
 after_copy:
 #ifdef CONFIG_ENABLE_MMU
 enable_mmu:
@@ -215,7 +221,6 @@ mmu_on:
 	nop
 #endif
 
-skip_hw_init:
 	/* Set up the stack						    */
 stack_setup:
 #ifdef CONFIG_MEMORY_UPPER_CODE

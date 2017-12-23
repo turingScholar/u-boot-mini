@@ -100,7 +100,7 @@ lowlevel_init:
 
 	/* init system clock */
 	bl system_clock_init
-
+	
 	/* for UART */
 	bl uart_asm_init
 
@@ -181,7 +181,7 @@ system_clock_init:
 
 	ldr	r2, =0x80
 	orr	r1, r1, r2
-	str	r1, [r0, #OTHERS_OFFSET]
+	str	r1, [r0, #OTHERS_OFFSET]	
 
 check_syncack:
 	ldr	r1, [r0, #OTHERS_OFFSET]
@@ -227,8 +227,7 @@ wait_for_async:
 	orr	r1, r1, #0x30000
 	str	r1, [r0, #CLK_DIV2_OFFSET]
 #endif
-
-
+	
 	ldr   	r1, [r0, #CLK_DIV0_OFFSET]	/*Set Clock Divider*/
 	bic	r1, r1, #0x30000
 	bic	r1, r1, #0xff00
@@ -237,10 +236,13 @@ wait_for_async:
 	orr	r1, r1, r2
 	str	r1, [r0, #CLK_DIV0_OFFSET]
 
+	
 	ldr	r1, =APLL_VAL
 	str	r1, [r0, #APLL_CON_OFFSET]
+
 	ldr	r1, =MPLL_VAL
 	str	r1, [r0, #MPLL_CON_OFFSET]
+
 
 	ldr	r1, =0x80200203			/* FOUT of EPLL is 96MHz */
 
@@ -249,6 +251,7 @@ wait_for_async:
 	str	r1, [r0, #EPLL_CON1_OFFSET]
 
 	ldr	r1, [r0, #CLK_SRC_OFFSET]	/* APLL, MPLL, EPLL select to Fout */
+
 
 #if defined(CONFIG_CLKSRC_CLKUART)
 	ldr	r2, =0x2007

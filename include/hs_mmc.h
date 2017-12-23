@@ -173,10 +173,6 @@ enum card_type
 
 
 
-
-
-
-
 #ifndef __MOVI_H__
 #define __MOVI_H__
 
@@ -202,9 +198,13 @@ enum card_type
 /* movinand definitions */
 #define MOVI_BLKSIZE		512
 
-
-#define MOVI_TOTAL_BLKCNT	7864320 // 7864320 // 3995648 // 1003520 /* static movinand total block count: for writing to movinand when nand boot */
+#ifdef CONFIG_BOOT_MOVINAND
+#define MOVI_TOTAL_BLKCNT	*((volatile unsigned int*)(TCM_BASE - 0x4))
+#define MOVI_HIGH_CAPACITY	*((volatile unsigned int*)(TCM_BASE - 0x8))
+#else
+#define MOVI_TOTAL_BLKCNT	7864320
 #define MOVI_HIGH_CAPACITY	0
+#endif
 
 
 /* partition information */

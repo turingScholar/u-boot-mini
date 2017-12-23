@@ -31,6 +31,7 @@
 #include <malloc.h>
 #include <devices.h>
 #include <version.h>
+#include <hs_mmc.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -205,7 +206,7 @@ void start_armboot (void)
 	puts ("SD/MMC:  ");
 
 	movi_set_capacity();
-	movi_set_ofs(7864320);
+	movi_set_ofs(MOVI_TOTAL_BLKCNT);
 	movi_init();	
 #endif
 
@@ -230,7 +231,10 @@ void start_armboot (void)
 	jumptable_init ();
 	console_init_r ();	/* fully init console as a device */
 	enable_interrupts ();
+
+#ifdef BOARD_LATE_INIT && CONFIG_BOOT_NAND
 	board_late_init ();
+#endif
 
 	for (;;) 
 	{

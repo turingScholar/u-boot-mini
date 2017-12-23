@@ -53,8 +53,7 @@ int dram_init(void)
 	return 0;
 }
 
-#ifdef BOARD_LATE_INIT
-#if defined(CONFIG_BOOT_NAND)
+#ifdef BOARD_LATE_INIT && CONFIG_BOOT_NAND
 int board_late_init (void)
 {
 	unsigned int *magic = (unsigned int*)(PHYS_SDRAM_1);
@@ -71,7 +70,6 @@ int board_late_init (void)
 
 	return 0;
 }
-#endif
 #endif
 
 #ifdef CONFIG_DISPLAY_BOARDINFO
