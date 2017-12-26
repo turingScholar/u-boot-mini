@@ -34,7 +34,7 @@ COBJS	= main.o cmd_boot.o \
 	  console.o devices.o dlmalloc.o \
 	  cmd_load.o xyzModem.o \
 	  cmd_test.o cmd_mem.o \
-	  hs_mmc.o cmd_movi.o \
+	  movi.o cmd_movi.o \
 	  cmd_usbd.o env_movi.o
 
 

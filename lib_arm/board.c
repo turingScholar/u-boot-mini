@@ -31,7 +31,7 @@
 #include <malloc.h>
 #include <devices.h>
 #include <version.h>
-#include <hs_mmc.h>
+#include <movi.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 

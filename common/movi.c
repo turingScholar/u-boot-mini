@@ -12,7 +12,7 @@
 
 
 #include <s3c6410.h>
-#include <hs_mmc.h>
+#include <movi.h>
 
 static ulong mmc_bread (int dev_num, ulong blknr, ulong blkcnt, ulong* dst);
 

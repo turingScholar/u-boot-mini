@@ -3,7 +3,7 @@
 #if defined(CFG_ENV_IS_IN_MOVINAND) /* Environment is in MoviNAND */
 
 #include <environment.h>
-#include <hs_mmc.h>
+#include <movi.h>
 
 #if ((CONFIG_COMMANDS&(CFG_CMD_ENV|CFG_CMD_MOVINAND)) == (CFG_CMD_ENV|CFG_CMD_MOVINAND))
 #define CMD_SAVEENV
