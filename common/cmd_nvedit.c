@@ -443,7 +443,7 @@ U_BOOT_CMD(
 	"    - delete environment variable 'name'\n"
 );
 
-/*
+
 int do_saveenv (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 {
 	extern char * env_name_spec;
@@ -459,4 +459,4 @@ U_BOOT_CMD(
 	"saveenv - save environment variables to persistent storage\n",
 	NULL
 );
-*/
+
