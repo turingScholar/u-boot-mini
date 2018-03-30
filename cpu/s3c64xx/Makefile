@@ -28,10 +28,10 @@ LIB	= lib$(CPU).a
 START	= start.o
 
 OBJS	= nand_cp.o serial.o  \
-		interrupts.o cpu.o usbd-otg-hs.o
+		interrupts.o cpu.o usbd-otg-hs.o 
 		
 # i2c.o nand.o
-# onenand.o onenand_cp.o usbd-otg-hs.o 
+# onenand.o onenand_cp.o 
 # hs_mmc.o movi.o usb_ohci.o 
 
 all:	.depend $(START) $(LIB)

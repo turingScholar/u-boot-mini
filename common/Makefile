@@ -33,9 +33,8 @@ COBJS	= main.o cmd_boot.o \
 	  exports.o lists.o \
 	  console.o devices.o dlmalloc.o \
 	  cmd_load.o xyzModem.o \
-	  cmd_test.o cmd_mem.o \
-	  hs_mmc.o cmd_movi.o \
-	  cmd_usbd.o
+	  cmd_nand.o cmd_test.o \
+	  cmd_mem.o cmd_bootm.o cmd_usbd.o
 
 
 SRCS	:= $(AOBJS:.o=.S) $(COBJS:.o=.c)

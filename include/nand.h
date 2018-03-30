@@ -5,9 +5,9 @@
 
 /* Initial parameter */
 
-#define TACLS		0
-#define TWRPH0		2
-#define TWRPH1		0
+#define TACLS		3
+#define TWRPH0		3
+#define TWRPH1		3
 
 
 /*
@@ -21,8 +21,8 @@
 #define NAND_CMD_RESET			0xff
 
 
-#define NAND_DISABLE_CE()	(NFCONT_REG |= (1<<1))
-#define NAND_ENABLE_CE()	(NFCONT_REG &= ~(1<<1))
+#define NAND_DISABLE_CE()	(NFCONT_REG |= (1 << 1))
+#define NAND_ENABLE_CE()	(NFCONT_REG &= ~(1 << 1))
 
 #define NAND_CMD(cmd)		(NFCMD_REG = (cmd) & 0xff )
 #define NAND_ADDR(addr)		(NFADDR_REG = (addr) & 0xff )

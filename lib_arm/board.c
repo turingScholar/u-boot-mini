@@ -107,6 +107,9 @@ static int display_mem_map(void)
 		"_bss_start:\t0x%08x\n"
 		"_bss_end:\t0x%08x\n\n",
 		_armboot_start, _bss_start, _bss_end);
+
+	printf("\ngd->bd->bi_boot_params: %08x\n",
+		gd->bd->bi_boot_params);
 		
 	return 0;
 }
@@ -200,14 +203,12 @@ void start_armboot (void)
 		  "mem_malloc_brk:    0x%08x\n\n",
 		    mem_malloc_start, mem_malloc_end, mem_malloc_brk);
 
-
-#if defined(CONFIG_MOVINAND)
-	puts ("SD/MMC:  ");
-
-	movi_set_capacity();
-	movi_set_ofs(7864320);
-	movi_init();	
+/*
+#if defined(CONFIG_NAND)
+	puts ("NAND:    ");
+	nand_init();
 #endif
+*/
 
 	env_relocate ();
 	{

@@ -304,3 +304,40 @@ int print_cpuinfo(void)
 }
 
 
+int cleanup_before_linux (void)
+{
+	/*
+	 * this function is called just before we call linux
+	 * it prepares the processor for linux
+	 *
+	 * we turn off caches etc ...
+	 */
+
+	unsigned long i;
+
+	disable_interrupts ();
+
+#ifdef CONFIG_LCD
+	{
+		extern void lcd_disable(void);
+		extern void lcd_panel_disable(void);
+
+		lcd_disable(); /* proper disable of lcd & panel */
+		lcd_panel_disable();
+	}
+#endif
+
+	/* turn off I/D-cache */
+	asm ("mrc p15, 0, %0, c1, c0, 0":"=r" (i));
+	i &= ~(C1_DC | C1_IC);
+	asm ("mcr p15, 0, %0, c1, c0, 0": :"r" (i));
+
+	/* flush I/D-cache */
+	i = 0;
+	asm ("mcr p15, 0, %0, c7, c7, 0": :"r" (i));  /* invalidate both caches and flush btb */
+	asm ("mcr p15, 0, %0, c7, c10, 4": :"r" (i)); /* mem barrier to sync things */
+	return(0);
+}
+
+
+

@@ -26,7 +26,9 @@
 #ifndef __S3C_OTG_HS_H__
 #define __S3C_OTG_HS_H__
 
+#include <asm/byteorder.h>
 #include <asm/hardware.h>
+//#include <asm/io.h>
 
 
 #define readl(a) (*((vu_long *)(a)))

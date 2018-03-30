@@ -8,7 +8,7 @@
 #define CONFIG_S3C64XX			1
 #define CONFIG_SMDK6410		1
 
-
+#define CONFIG_ZIMAGE_BOOT
 
 #define MEMORY_BASE_ADDRESS		0x50000000
 
@@ -57,6 +57,44 @@
 #define BOARD_LATE_INIT
 
 
+#define CONFIG_SETUP_MEMORY_TAGS
+#define CONFIG_CMDLINE_TAG
+#define CONFIG_INITRD_TAG
+
+
+/*
+ * Boot options
+ */
+#define	CONFIG_BOOT_NAND
+#define	CONFIG_NAND
+#define	CONFIG_NAND_BL1_8BIT_ECC
+
+
+#if defined(CONFIG_BOOT_NAND)
+#define CFG_ENV_IS_IN_NAND
+#define CFG_NAND_HWECC
+#define CONFIG_BOOTCOMMAND	"dnw 0x50008000; dnw 0x53000000; bootm 0xc0008000"
+//#define CONFIG_BOOTCOMMAND	"nand read 0xc0008000 0x100000 0x500000;bootm 0xc0008000"
+
+#elif defined(CONFIG_BOOT_MOVINAND)
+#define CFG_ENV_IS_IN_MOVINAND
+#define CONFIG_BOOTCOMMAND	"movi read kernel c0008000;movi read rootfs c0800000;bootm c0008000"
+#else
+# error Define one of CONFIG_BOOT_{NAND|MOVINAND|ONENAND|ONENAND_IROM}
+#endif
+
+
+
+/*
+ * USB Download
+ */
+#define CONFIG_S3C_USBD
+#define USBD_DOWN_ADDR		0xc0000000
+
+
+
+
+
 /*
  * Architecture magic and machine type
  */
@@ -97,7 +135,10 @@
 
 
 #define CONFIG_BOOTDELAY	8
-#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=cramfs console=ttySAC0,115200"
+#define CONFIG_BOOTARGS     "initrd=0x53000000,0x400000 root=/dev/ram,rw init=/linuxrc console=ttySAC0,115200"
+//#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=cramfs console=ttySAC0,115200"
+
+
 
 #define CONFIG_ETHADDR			00:40:5c:26:0a:5b
 #define CONFIG_NETMASK			255.255.255.0
@@ -253,34 +294,5 @@
 #define DMC_DDR_REFRESH_PRD		(((Startup_HCLK / 1000 * DDR_tREFRESH) - 1) / 1000000) 	// TRM 2656
 #define DMC_DDR_USER_CONFIG		1							// 2b01 : mDDR
 
-
-
-#define	CONFIG_MOVINAND
-
-
-#define	CONFIG_S3C_USBD
-#define	USBD_DOWN_ADDR               0xc0000000
-
-
-
-#define	CONFIG_BOOT_NAND
-#define	CONFIG_NAND
-#define	CONFIG_NAND_BL1_8BIT_ECC
-
-
-#if defined(CONFIG_BOOT_NAND)
-
-#define CFG_ENV_IS_IN_NAND
-#define CFG_NAND_HWECC
-#define CONFIG_BOOTCOMMAND	"nand read 0xc0008000 0x100000 0x500000;bootm 0xc0008000"
-
-#elif defined(CONFIG_BOOT_MOVINAND)
-
-#define CFG_ENV_IS_IN_MOVINAND
-#define CONFIG_BOOTCOMMAND	"movi read kernel c0008000;movi read rootfs c0800000;bootm c0008000"
-
-#else
-# error Define one of CONFIG_BOOT_{NAND|MOVINAND|ONENAND|ONENAND_IROM}
-#endif
 
 #endif

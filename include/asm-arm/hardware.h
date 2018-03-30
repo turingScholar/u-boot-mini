@@ -22,35 +22,6 @@
 #define __REGb(x)	(*(volatile unsigned char *)(x))
 #define __REG2(x,y)	(*(volatile unsigned long *)((x) + (y)))
 
-#define read(x)	(*(volatile unsigned long *)(x))
-#define readl(x)	(*(volatile unsigned long *)(x))
-#define readw(x)	(*(volatile unsigned short *)(x))
-#define readb(x)	(*(volatile unsigned char *)(x))
-
-
-#define writeb(v,a)		(*(volatile unsigned char *)(a) = (v))
-#define writew(v,a)		(*(volatile unsigned short *)(a) = (v))
-#define writel(v,a)		(*(volatile unsigned int *)(a) = (v))
-
-
-
-#define IF_TYPE_UNKNOWN		0
-#define IF_TYPE_IDE				1
-#define IF_TYPE_SCSI				2
-#define IF_TYPE_ATAPI			3
-#define IF_TYPE_USB				4
-#define IF_TYPE_DOC				5
-#define IF_TYPE_MMC				6
-#define IF_TYPE_SD				7
-#define IF_TYPE_SATA			8
-
-
-#define PART_TYPE_UNKNOWN	0x00
-#define PART_TYPE_MAC			0x01
-#define PART_TYPE_DOS			0x02
-#define PART_TYPE_ISO			0x03
-#define PART_TYPE_AMIGA		0x04
-
 
 
 #define Fld(Size, Shft)	(((Size) << 16) + (Shft))
