@@ -69,6 +69,8 @@
 #define	CONFIG_NAND
 #define	CONFIG_NAND_BL1_8BIT_ECC
 
+#define	CONFIG_MOVINAND
+
 
 #if defined(CONFIG_BOOT_NAND)
 #define CFG_ENV_IS_IN_NAND

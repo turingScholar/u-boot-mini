@@ -1,6 +1,11 @@
 #ifndef __HS_MMC_H__
 #define __HS_MMC_H__
 
+
+extern uint movi_hc;
+extern uint movi_sectors;
+
+
 struct sd_cid 
 {
 	char			pnm_0;	/* product name */

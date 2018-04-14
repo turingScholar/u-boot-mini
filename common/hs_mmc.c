@@ -12,7 +12,11 @@
 
 
 #include <s3c6410.h>
-#include "hs_mmc.h"
+#include <part.h>
+#include <asm/io.h>
+#include <hs_mmc.h>
+
+
 
 static ulong mmc_bread (int dev_num, ulong blknr, ulong blkcnt, ulong* dst);
 
@@ -57,33 +61,9 @@ static uint card_mid = 0;
 extern uint movi_hc;
 enum card_type card_type;
 
+
 /* extern functions */
 extern ulong get_HCLK(void);
-
-typedef struct block_dev_desc 
-{
-	int		if_type;	/* type of the interface */
-	int	        dev;	  	/* device number */
-	unsigned char	part_type;  	/* partition type */
-	unsigned char	target;		/* target SCSI ID */
-	unsigned char	lun;		/* target LUN */
-	unsigned char	type;		/* device type */
-	unsigned char	removable;	/* removable device */
-#ifdef CONFIG_LBA48
-	unsigned char	lba48;		/* device can use 48bit addr (ATA/ATAPI v7) */
-#endif
-	unsigned long	lba;	  	/* number of blocks */
-	unsigned long	blksz;		/* block size */
-	unsigned char	vendor [40+1]; 	/* IDE model, SCSI Vendor */
-	unsigned char	product[20+1];	/* IDE Serial no, SCSI product */
-	unsigned char	revision[8+1];	/* firmware revision */
-	unsigned long	(*block_read)(int dev,
-				      unsigned long start,
-				      unsigned long blkcnt,
-				      unsigned long *buffer);
-}block_dev_desc_t;
-
-
 static block_dev_desc_t mmc_dev;
 block_dev_desc_t* mmc_get_dev(int dev)
 {
@@ -114,9 +94,9 @@ block_dev_desc_t* mmc_get_dev(int dev)
         })
 
 
-
-
 uint movi_hc = 0;
+uint movi_sectors;
+
 
 void movi_set_capacity(void)
 {
@@ -127,7 +107,8 @@ int movi_set_ofs(uint last)
 {
 	int changed = 0;
 
-	if (ofsinfo.last != last) {
+	if (ofsinfo.last != last) 
+	{
 		ofsinfo.last 	= last - (eFUSE_SIZE / MOVI_BLKSIZE);
 		ofsinfo.bl1	= ofsinfo.last - MOVI_BL1_BLKCNT;
 		ofsinfo.env	= ofsinfo.bl1 - MOVI_ENV_BLKCNT;
@@ -183,16 +164,11 @@ static int wait_for_r_buf_ready (void)
 
 static int wait_for_cmd_done (void)
 {
-	uint i;
 	ushort n_int, e_int;
 
 	dbg("wait_for_cmd_done\n");
-#if 0
-	for (i = 0; i < 5000000; i++) {
-		udelay(1);//5s timeout
-#else
 	while(1){
-#endif
+
 		n_int = s3c_hsmmc_readw(HM_NORINTSTS);
 		dbg("  HM_NORINTSTS: %04x\n", n_int);
 		if (n_int & 0x8000)
@@ -783,8 +759,6 @@ static void clock_config (uint clksrc, uint Divisior)
 
 static void check_dma_int (void)
 {
-	uint i;
-
 	HS_DMA_END = 0;
 #if 0
 	for (i = 0; i < 5000000; i++) {
@@ -1085,8 +1059,10 @@ int hsmmc_init (void)
 			puts("         SDHC size: ");
 			sd_sectors = (UNSTUFF_BITS(((uint *)&response[0]), 48, 22)
 								    + 1) << 10;
-			printf("%d",sd_sectors / 2048);
+			movi_sectors = sd_sectors;
+			printf("%d",sd_sectors);
 			break;
+			
 		default:
 			puts("         MMC/SD size: ");
 #if 0
@@ -1104,7 +1080,7 @@ int hsmmc_init (void)
 #endif
 			break;
 		}
-		puts(" MiB\n");
+		puts(" Sectors\n");
 	} else
 		puts("CSD grab broken\n");
 

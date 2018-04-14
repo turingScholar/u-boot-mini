@@ -28,11 +28,8 @@
 
 #include <asm/byteorder.h>
 #include <asm/hardware.h>
-//#include <asm/io.h>
+#include <asm/io.h>
 
-
-#define readl(a) (*((vu_long *)(a)))
-#define writel(a, b) (*((vu_long *)(b)) = ((vu_long)a))
 
 
 /*

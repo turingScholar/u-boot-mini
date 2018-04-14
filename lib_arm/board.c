@@ -31,6 +31,8 @@
 #include <malloc.h>
 #include <devices.h>
 #include <version.h>
+#include <hs_mmc.h>
+
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -209,6 +211,15 @@ void start_armboot (void)
 	nand_init();
 #endif
 */
+
+#if defined(CONFIG_MOVINAND)
+	puts ("SD/MMC:  ");
+
+	movi_set_capacity();
+	movi_init();
+	movi_set_ofs(movi_sectors);
+#endif
+
 
 	env_relocate ();
 	{
