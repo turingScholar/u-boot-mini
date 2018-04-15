@@ -13,12 +13,9 @@
 
 #include <s3c6410.h>
 #include <part.h>
-#include <asm/io.h>
 #include <hs_mmc.h>
+#include <asm/io.h>
 
-
-
-static ulong mmc_bread (int dev_num, ulong blknr, ulong blkcnt, ulong* dst);
 
 
 #define SDI_Tx_buffer_HSMMC		(0x51000000)
@@ -58,7 +55,6 @@ static ulong HCLK;
 static uint card_mid = 0;
 
 /* extern variables */
-extern uint movi_hc;
 enum card_type card_type;
 
 
@@ -69,6 +65,7 @@ block_dev_desc_t* mmc_get_dev(int dev)
 {
 	return( (block_dev_desc_t*) &mmc_dev);
 }
+
 
 #define s3c_hsmmc_readl(x)	__REGl((ELFIN_HSMMC_BASE + (HSMMC_CHANNEL * 0x100000)) + (x))
 #define s3c_hsmmc_readw(x)	__REGw((ELFIN_HSMMC_BASE + (HSMMC_CHANNEL * 0x100000)) + (x))
@@ -93,11 +90,6 @@ block_dev_desc_t* mmc_get_dev(int dev)
                 __res & __mask;                                         \
         })
 
-
-uint movi_hc = 0;
-uint movi_sectors;
-
-
 void movi_set_capacity(void)
 {
 	movi_hc = 1;
@@ -105,20 +97,17 @@ void movi_set_capacity(void)
 
 int movi_set_ofs(uint last)
 {
-	int changed = 0;
+	block_dev_desc_t *mmc = mmc_get_dev(0);
+	last = mmc->lba;
+	
+	ofsinfo.last 	= last - (eFUSE_SIZE / MOVI_BLKSIZE);
+	ofsinfo.bl1	= ofsinfo.last - MOVI_BL1_BLKCNT;
+	ofsinfo.env	= ofsinfo.bl1 - MOVI_ENV_BLKCNT;
+	ofsinfo.bl2	= ofsinfo.bl1 - (MOVI_BL2_BLKCNT + MOVI_ENV_BLKCNT);
+	ofsinfo.kernel	= ofsinfo.bl2 - MOVI_ZIMAGE_BLKCNT;
+	ofsinfo.rootfs	= ofsinfo.kernel - MOVI_ROOTFS_BLKCNT;
 
-	if (ofsinfo.last != last) 
-	{
-		ofsinfo.last 	= last - (eFUSE_SIZE / MOVI_BLKSIZE);
-		ofsinfo.bl1	= ofsinfo.last - MOVI_BL1_BLKCNT;
-		ofsinfo.env	= ofsinfo.bl1 - MOVI_ENV_BLKCNT;
-		ofsinfo.bl2	= ofsinfo.bl1 - (MOVI_BL2_BLKCNT + MOVI_ENV_BLKCNT);
-		ofsinfo.kernel	= ofsinfo.bl2 - MOVI_ZIMAGE_BLKCNT;
-		ofsinfo.rootfs	= ofsinfo.kernel - MOVI_ROOTFS_BLKCNT;
-		changed = 1;
-	}
-
-	return changed;
+	return 0;
 }
 
 int movi_init(void)
@@ -1059,7 +1048,6 @@ int hsmmc_init (void)
 			puts("         SDHC size: ");
 			sd_sectors = (UNSTUFF_BITS(((uint *)&response[0]), 48, 22)
 								    + 1) << 10;
-			movi_sectors = sd_sectors;
 			printf("%d",sd_sectors);
 			break;
 			
@@ -1104,6 +1092,7 @@ int hsmmc_init (void)
 
 	s3c_hsmmc_writew(0xffff, HM_NORINTSTS);
 
+	mmc_dev.lba = sd_sectors;
 	mmc_dev.if_type = IF_TYPE_MMC;
 	mmc_dev.part_type = PART_TYPE_DOS;
 	mmc_dev.dev = 0;
@@ -1244,7 +1233,7 @@ error:
 	return;
 }
 
-static ulong mmc_bread (int dev_num, ulong blknr, ulong blkcnt, ulong* dst)
+ulong mmc_bread (int dev_num, ulong blknr, ulong blkcnt, ulong* dst)
 {
 	/* Note: blknr is NOTHING like blknum! */
 

@@ -166,6 +166,7 @@ init_fnc_t *init_sequence[] = {
 	NULL,
 };
 
+
 void start_armboot (void)
 {
 	init_fnc_t **init_fnc_ptr;
@@ -217,7 +218,7 @@ void start_armboot (void)
 
 	movi_set_capacity();
 	movi_init();
-	movi_set_ofs(movi_sectors);
+	movi_set_ofs(1);
 #endif
 
 

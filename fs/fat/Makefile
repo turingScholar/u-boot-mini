@@ -1,6 +1,4 @@
 #
-# (C) Copyright 2004-2006
-# Wolfgang Denk, DENX Software Engineering, wd@denx.de.
 #
 # See file CREDITS for list of people who contributed to this
 # project.
@@ -12,7 +10,7 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -23,39 +21,19 @@
 
 include $(TOPDIR)/config.mk
 
-LIB	= $(obj)libcommon.a
+LIB	= $(obj)libfat.a
 
 AOBJS	=
-
-COBJS	= main.o cmd_boot.o \
-	  cmd_nvedit.o command.o \
-	  env_common.o env_nand.o \
-	  exports.o lists.o \
-	  console.o devices.o dlmalloc.o \
-	  cmd_load.o xyzModem.o \
-	  cmd_mem.o cmd_bootm.o \
-	  cmd_movi.o hs_mmc.o \
-	  cmd_nand.o cmd_test.o \
-	  cmd_usbd.o cmd_fat.o
-
+COBJS	= fat.o file.o
 
 SRCS	:= $(AOBJS:.o=.S) $(COBJS:.o=.c)
 OBJS	:= $(addprefix $(obj),$(AOBJS) $(COBJS))
 
-CPPFLAGS += -I..
-
 all:	$(LIB) $(AOBJS)
 
-$(LIB): $(obj).depend $(OBJS)
+$(LIB):	$(obj).depend $(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
 
-$(obj)environment.o: $(src)environment.c $(obj)../tools/envcrc
-	$(CC) $(AFLAGS) -Wa,--no-warn \
-		-DENV_CRC=$(shell $(obj)../tools/envcrc) \
-		-c -o $@ $(src)environment.c
-
-$(obj)../tools/envcrc:
-	$(MAKE) -C ../tools
 
 #########################################################################
 

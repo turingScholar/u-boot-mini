@@ -144,12 +144,13 @@ endif
 LIBS += lib_$(ARCH)/lib$(ARCH).a
 LIBS += common/libcommon.a
 LIBS += $(BOARDLIBS)
-
+LIBS += disk/libdisk.a
+LIBS += fs/fat/libfat.a
 
 # LIBS += drivers/nand/libnand.a
-# LIBS += fs/fat/libfat.a
+
 # LIBS += drivers/libdrivers.a
-# LIBS += rtc/librtc.a	LIBS += disk/libdisk.a
+# LIBS += rtc/librtc.a	
 # LIBS += drivers/nand_legacy/libnand_legacy.a
 # fs/fdos/libfdos.a  fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
 # fs/cramfs/libcramfs.a   fs/jffs2/libjffs2.a

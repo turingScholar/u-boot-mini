@@ -3,8 +3,9 @@
 #ifdef CONFIG_MOVINAND
 
 #include <command.h>
-#include "hs_mmc.h"
+#include <hs_mmc.h>
 
+uint movi_hc;
 struct movi_offset_t ofsinfo;
 
 

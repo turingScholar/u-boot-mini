@@ -27,6 +27,7 @@
 #include <zlib.h>
 #include <asm/byteorder.h>
 #include <asm/setup.h>
+#include <types.h>
 #ifdef CONFIG_HAS_DATAFLASH
 #include <dataflash.h>
 #endif
@@ -79,8 +80,6 @@ static struct tag *params;
 
 extern image_header_t header;	/* from cmd_bootm.c */
 
-
-typedef unsigned int __u32;
 
 #define SWAP_LONG(x) \
 	((__u32)( \

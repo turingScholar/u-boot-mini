@@ -70,6 +70,12 @@
 #define	CONFIG_NAND_BL1_8BIT_ECC
 
 #define	CONFIG_MOVINAND
+#define	CONFIG_MMC
+
+#define	CONFIG_FAT
+#ifdef	CONFIG_FAT
+#define	CONFIG_DOS_PARTITION
+#endif
 
 
 #if defined(CONFIG_BOOT_NAND)
@@ -125,7 +131,8 @@
 			CFG_CMD_LOADS			| \
 			CFG_CMD_LOADB			| \
 			CFG_CMD_ENV			| \
-			CFG_CMD_USB)
+			CFG_CMD_USB			| \
+			CFG_CMD_FAT)
 
 #define CFG_CMD_NAND		0x00000001ULL
 #define CFG_CMD_MOVINAND 	0x00000002ULL
@@ -133,7 +140,7 @@
 #define CFG_CMD_LOADB		0x00000008ULL
 #define CFG_CMD_ENV		0x00000010ULL
 #define CFG_CMD_USB		0x00000020ULL
-						
+#define CFG_CMD_FAT		0x00000040ULL						
 
 
 #define CONFIG_BOOTDELAY	8

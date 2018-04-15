@@ -35,9 +35,9 @@
 #include <zlib.h>
 #include <bzlib.h>
 #include <asm/byteorder.h>
+#include <types.h>
 
 
-typedef unsigned int __u32;
 
 #define SWAP_LONG(x) \
 	((__u32)( \

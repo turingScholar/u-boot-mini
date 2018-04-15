@@ -1,10 +1,9 @@
 #ifndef __HS_MMC_H__
 #define __HS_MMC_H__
-
+#include <part.h>
 
 extern uint movi_hc;
-extern uint movi_sectors;
-
+extern struct movi_offset_t ofsinfo;
 
 struct sd_cid 
 {
@@ -236,6 +235,7 @@ struct movi_offset_t
 };
 
 /* external functions */
+extern ulong mmc_bread (int dev_num, ulong blknr, ulong blkcnt, ulong* dst);
 extern void hsmmc_set_gpio(void);
 extern void hsmmc_reset (void);
 extern int hsmmc_init (void);
@@ -247,16 +247,7 @@ extern void movi_read (uint addr, uint start_blk, uint blknum);
 extern void movi_write_env(ulong addr);
 extern void movi_read_env(ulong addr);
 extern void movi_bl2_copy(void);
-
-
 extern ulong virt_to_phy_smdk6410(ulong addr);
-
-
-extern uint movi_hc;
-extern struct movi_offset_t ofsinfo;
-
 #endif
-
-
 
 #endif /*__HS_MMC_H__*/
