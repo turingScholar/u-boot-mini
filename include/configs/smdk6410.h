@@ -78,6 +78,12 @@
 #endif
 
 
+/* NAND configuration */
+#define CFG_MAX_NAND_DEVICE	1
+#define CFG_NAND_BASE			0x70200010
+#define NAND_MAX_CHIPS			1
+#define CFG_NAND_ERASE_LEN	0xCF00000 //200MB
+
 #if defined(CONFIG_BOOT_NAND)
 #define CFG_ENV_IS_IN_NAND
 #define CFG_NAND_HWECC
@@ -98,8 +104,6 @@
  */
 #define CONFIG_S3C_USBD
 #define USBD_DOWN_ADDR		0xc0000000
-
-
 
 
 
@@ -127,7 +131,7 @@
   */
 #define CONFIG_COMMANDS \
 			(CFG_CMD_NAND			| \
-			CFG_CMD_MOVINAND		| \			
+			CFG_CMD_MOVINAND		| \
 			CFG_CMD_LOADS			| \
 			CFG_CMD_LOADB			| \
 			CFG_CMD_ENV			| \

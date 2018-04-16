@@ -389,6 +389,26 @@
 #define GPQPUDSLP_REG		__REG(ELFIN_GPIO_BASE+GPQPUDSLP_OFFSET)
 
 
+/*GPIO F*/
+#define REG_GPFCON       (0x7F0080A0)
+#define REG_GPFDAT       (0x7F0080A4)
+
+/*GPIO M*/
+#define REG_GPMCON       (0x7F008820)
+#define REG_GPMDAT       (0x7F008824)
+
+#define LED1_ON   ~(1<<0)
+#define LED2_ON   ~(1<<1)
+#define LED3_ON   ~(1<<2)
+#define LED4_ON   ~(1<<3)
+
+#define LED1_OFF   (1<<0)
+#define LED2_OFF   (1<<1)
+#define LED3_OFF   (1<<2)
+#define LED4_OFF   (1<<3)
+#define LEDALL_OFF (0xFF)
+
+
 /*
  * Bus Matrix
  */

@@ -206,12 +206,11 @@ void start_armboot (void)
 		  "mem_malloc_brk:    0x%08x\n\n",
 		    mem_malloc_start, mem_malloc_end, mem_malloc_brk);
 
-/*
+
 #if defined(CONFIG_NAND)
 	puts ("NAND:    ");
 	nand_init();
 #endif
-*/
 
 #if defined(CONFIG_MOVINAND)
 	puts ("SD/MMC:  ");

@@ -146,8 +146,7 @@ LIBS += common/libcommon.a
 LIBS += $(BOARDLIBS)
 LIBS += disk/libdisk.a
 LIBS += fs/fat/libfat.a
-
-# LIBS += drivers/nand/libnand.a
+LIBS += drivers/nand/libnand.a
 
 # LIBS += drivers/libdrivers.a
 # LIBS += rtc/librtc.a	

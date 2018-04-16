@@ -41,7 +41,7 @@ static int nandll_read_page (uchar *buf, unsigned long addr, int large_block)
 
         NAND_ENABLE_CE();
 
-        NFCMD_REG = NAND_CMD_READ;
+        NFCMD_REG = NAND_CMD_READ0;
 
         /* Write Address */
         NFADDR_REG = 0;
@@ -56,7 +56,7 @@ static int nandll_read_page (uchar *buf, unsigned long addr, int large_block)
 	if (large_block)
 		NFCMD_REG = NAND_CMD_READSTART;
 
-	NAND_TRANS_RNB();
+	NF_TRANSRnB();
 	
 	/* for compatibility(2460). u32 cannot be used. by scsuh */
 	for(i=0; i < page_size; i++) {
@@ -113,7 +113,7 @@ int copy_uboot_to_ram (void)
 	volatile unsigned char id;
 	
         NAND_ENABLE_CE();
-        NFCMD_REG = NAND_CMD_READ_ID;
+        NFCMD_REG = NAND_CMD_READID;
         NFADDR_REG =  0x00;
 
 	/* wait for a while */
