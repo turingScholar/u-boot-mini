@@ -146,15 +146,16 @@ LIBS += common/libcommon.a
 LIBS += $(BOARDLIBS)
 LIBS += disk/libdisk.a
 LIBS += fs/fat/libfat.a
+LIBS += drivers/libdrivers.a
 LIBS += drivers/nand/libnand.a
+LIBS += net/libnet.a
 
-# LIBS += drivers/libdrivers.a
 # LIBS += rtc/librtc.a	
 # LIBS += drivers/nand_legacy/libnand_legacy.a
 # fs/fdos/libfdos.a  fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
 # fs/cramfs/libcramfs.a   fs/jffs2/libjffs2.a
 # LIBS += post/libpost.a post/cpu/libcpu.a
-# LIBS += net/libnet.a
+
 
 
 LIBS := $(addprefix $(obj),$(LIBS))

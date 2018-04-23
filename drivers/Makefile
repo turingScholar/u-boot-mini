@@ -27,7 +27,7 @@ include $(TOPDIR)/config.mk
 
 LIB	= $(obj)libdrivers.a
 
-COBJS	= cs8900.o dm9000x.o ns7520_eth.o usbdcore.o videomodes.o 
+COBJS	= dm9000x.o
 
 
      # 3c589.o 5701rls.o ali512x.o atmel_usart.o \

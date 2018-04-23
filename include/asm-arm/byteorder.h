@@ -37,7 +37,15 @@
 		(((__u32)(x) & (__u32)0xff000000UL) >> 24) ))
 
 
+#define SWAP_SHORT(x) \
+	((__u16)( \
+		(((__u16)(x) & (__u16)0x00ffUL) <<  8) | \
+		(((__u16)(x) & (__u16)0xff00UL) >>  8) ))
+
+
 #define     ntohl(a)	SWAP_LONG(a)
 #define     htonl(a)	SWAP_LONG(a)
+#define     ntohs(a)	SWAP_SHORT(a)
+#define     htons(a)	SWAP_SHORT(a)
 
 #endif
